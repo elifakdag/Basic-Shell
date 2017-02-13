@@ -5,17 +5,19 @@ If you can compile  and use this shell, try this line on terminal:
 	gcc -o main.out mainSetup.c builtin.c systemcom.c pipe.c -I.
 
 Main.out involve all source code and header file.
+	
 	mainSetup.c builtin.c systemcom.c pipe.c	
 
-
+	
 	CSE 333 - OPERATING SYSTEMS
 
 This programming assignment is to write a simple shell. The shell accepts user commands and then executes each command in a separate process. One technique for implementing a shell interface is to have the parent process first read what the user enters on the command line and then create a separate child process that performs the command. Unless otherwise specified, the parent process waits for the child to exit before continuing. However, UNIX shells typically also allow the child process to run in the background – or concurrently – as well by specifying the ampersand (&) at the end of the command. The separate child process is created using the fork() system call and the user’s command is executed by using one of the system calls in the exec() family.
 The main() function of your program presents the command line prompt “CSE333sh: ” and then invokes setup() function which waits for the user to enter a command. The setup function (given in the attachment of the project) reads the user’s next command and parses it into separate tokens that are used to fill the argument vector for the command to be executed. This program is terminated when the user enters ^D (<CONTROL><D>); and setup function then invokes exit. The contents of the command entered by the user are loaded into the args array. You have to use “mainSetup.c” file (given in the attachment) to implement the project.We have already listed the required functions and properties of your shell.
 	Your shell should support different types of commands:
-A. System commands,
-B. Built-in commands,
-C. Pipe operator.
+
+A. System commands
+B. Built-in commands
+C. Pipe operator
 
 	A. System commands 
 
@@ -34,13 +36,14 @@ If the command includes a pathname, then you can use execl() providing full
 	CSE333sh: /bin/ls ls -l
 	CSE333sh: /bin/ls ls -l /home/user1/Desktop
 	
-
-	Important Notes:
+Important Notes:
 
 1. Using the “system” function for part A is not allowed!
 2.  In the project, you need to handle foreground and background processes. When a process run in foreground, your shell should wait for the task to complete, then immediately prompt the user for another command.
-333sh: gedit
-	A background process is indicated by placing an ampersand (’&’) character at the end of an input line. When a process run in background, your shell should not wait for the task to complete, but immediately prompt the user for another command.
+
+	333sh: gedit
+
+A background process is indicated by placing an ampersand (’&’) character at the end of an input line. When a process run in background, your shell should not wait for the task to complete, but immediately prompt the user for another command.
 
 	333sh: gedit &
 	
@@ -74,7 +77,6 @@ hist – This command is for maintaining a history of commands previously issued
 	o ! number - A user should be able to repeat a previously issued command by typing “! number”, where number indicates which command to repeat.
 Note that “! 1” is for repeating the command numbered 1 in the list of
 commands returned by history, and “! -1” is for repeating the last command.
-
 	o ! string - A user should be able to repeat a previously issued command by typing ! string, where string indicates the first characters of a most-recent command. If a user has executed “chmod 777 a.sh” and wants to repeat this command, “! chm” can be used.
 	o You are not allowed to use history command of Linux for this command. You should keep them by your own data structures.
 exit - Terminate your shell process.
